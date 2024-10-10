@@ -1,14 +1,13 @@
 package com.example.factory.entity;
 
-public class CojineriaToyota implements ICojineria {
+public class CojineriaToyota extends Cojineria {
 
-    @Override
-    public String getNumeroPieza() {
-        return "T789";
+    public CojineriaToyota(String noPieza, String material) {
+        super(noPieza, material);
     }
 
     @Override
-    public String getMaterial() {
-        return "cuero";
+    public String toString() {
+        return "Toyota Cojineria [No Pieza=" + noPieza + ", Material=" + material + "]";
     }
 }

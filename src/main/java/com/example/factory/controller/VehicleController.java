@@ -19,12 +19,9 @@ public class VehicleController {
 
     @PostMapping(value = "/ensamblar", produces = "application/json")
     public ResponseEntity<Vehiculo> ensamblarVehiculo(@RequestBody VehiculoDTO dto) {
-
-        // Llama al servicio para ensamblar el vehículo usando el DTO proporcionado
         Vehiculo vehiculo = ensamblajeService.ensamblarVehiculo(dto);
-
-        // Devuelve la respuesta con el vehículo ensamblado
         return ResponseEntity.ok(vehiculo);
     }
+
 
 }

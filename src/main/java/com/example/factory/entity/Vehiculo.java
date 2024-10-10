@@ -3,32 +3,43 @@ package com.example.factory.entity;
 import java.util.Date;
 
 public class Vehiculo {
-    private IChasis chasis;
-    private IMotor motor;
-    private ICojineria cojineria;
     private String color;
     private Date fechaEnsamblaje;
     private String numeroEnsamblaje;
+    private Chasis chasis;
+    private Motor motor;
+    private Cojineria cojineria;
 
-    public Vehiculo(IChasis chasis, IMotor motor, ICojineria cojineria, String color, Date fechaEnsamblaje, String numeroEnsamblaje) {
-        this.chasis = chasis;
-        this.motor = motor;
-        this.cojineria = cojineria;
+    public Vehiculo(String color, Date fechaEnsamblaje, String numeroEnsamblaje, Chasis chasis, Motor motor, Cojineria cojineria) {
         this.color = color;
         this.fechaEnsamblaje = fechaEnsamblaje;
         this.numeroEnsamblaje = numeroEnsamblaje;
+        this.chasis = chasis;
+        this.motor = motor;
+        this.cojineria = cojineria;
     }
 
-    @Override
-    public String toString() {
-        return "Vehiculo{" +
-                "chasis=" + chasis.getNumeroPieza() +
-                ", motor=" + motor.getNumeroPieza() +
-                ", cojineria=" + cojineria.getNumeroPieza() +
-                ", material="+cojineria.getMaterial() +
-                ", color='" + color + '\'' +
-                ", fechaEnsamblaje=" + fechaEnsamblaje +
-                ", numeroEnsamblaje='" + numeroEnsamblaje + '\'' +
-                '}';
+    public String getColor() {
+        return color;
+    }
+
+    public Date getFechaEnsamblaje() {
+        return fechaEnsamblaje;
+    }
+
+    public String getNumeroEnsamblaje() {
+        return numeroEnsamblaje;
+    }
+
+    public Chasis getChasis() {
+        return chasis;
+    }
+
+    public Motor getMotor() {
+        return motor;
+    }
+
+    public Cojineria getCojineria() {
+        return cojineria;
     }
 }

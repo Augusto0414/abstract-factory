@@ -1,45 +1,34 @@
 package com.example.factory.service;
 
-import com.example.factory.entity.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.factory.components.FordFactory;
+import com.example.factory.components.MazdaFactory;
+import com.example.factory.components.ToyotaFactory;
+import com.example.factory.dto.VehiculoDTO;
+import com.example.factory.entity.AbstracFactory;
+import com.example.factory.entity.Vehiculo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class EnsamblajeService {
 
-    @Autowired
-    private ToyotaFactory toyotaFactory;
-
-    @Autowired
-    private FordFactory fordFactory;
-
-    @Autowired
-    private MazdaFactory mazdaFactory;
-
-    private List<Vehiculo> vehiculos = new ArrayList<>();
-
-    public Vehiculo ensamblarVehiculo(String marca, String color, Date fechaEnsamblaje, String numeroEnsamblaje) {
-        IAbstracFactory factory = switch (marca) {
-            case "Toyota" -> toyotaFactory;
-            case "Ford" -> fordFactory;
-            case "Mazda" -> mazdaFactory;
-            default -> throw new IllegalArgumentException("Marca no soportada");
+    public Vehiculo ensamblarVehiculo(VehiculoDTO dto) {
+        AbstracFactory factory = switch (dto.getMarca().toLowerCase()) {
+            case "toyota" -> new ToyotaFactory(dto);
+            case "ford" -> new FordFactory(dto);
+            case "mazda" -> new MazdaFactory(dto);
+            default -> throw new IllegalArgumentException("Marca no soportada: " + dto.getMarca());
         };
 
-        IChasis chasis = factory.crearChasis();
-        IMotor motor = factory.crearMotor();
-        ICojineria cojineria = factory.crearCojineria();
 
-        Vehiculo vehiculo = new Vehiculo(chasis, motor, cojineria, color, fechaEnsamblaje, numeroEnsamblaje);
-        vehiculos.add(vehiculo);
-        return vehiculo;
-    }
-
-    public List<Vehiculo> obtenerTodosLosVehiculos() {
-        return new ArrayList<>(vehiculos);
+        return new Vehiculo(
+                dto.getColor(),
+                new Date(),
+                dto.getNumeroEnsamblaje(),
+                factory.crearChasis(),
+                factory.crearMotor(),
+                factory.crearCojineria()
+        );
     }
 }

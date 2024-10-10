@@ -1,18 +1,12 @@
 package com.example.factory.entity;
 
-public class ChasisMazda implements IChasis{
-    @Override
-    public int getNumeroEjes() {
-        return 4;
+public class ChasisMazda extends Chasis {
+    public ChasisMazda(String noEjes, String noPieza, String tipoTransmision) {
+        super(noEjes, noPieza, tipoTransmision);
     }
 
     @Override
-    public String getNumeroPieza() {
-        return "T123";
-    }
-
-    @Override
-    public String getTipoTransmision() {
-        return "automática";
+    public String toString() {
+        return "Toyota Chasis [No Ejes=" + noEjes + ", No Pieza=" + noPieza + ", Transmisión=" + tipoTransmision + "]";
     }
 }

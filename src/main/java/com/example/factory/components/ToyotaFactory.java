@@ -1,22 +1,27 @@
-package com.example.factory.entity;
+package com.example.factory.components;
 
-import org.springframework.stereotype.Component;
+import com.example.factory.dto.VehiculoDTO;
+import com.example.factory.entity.*;
 
-@Component
-public class ToyotaFactory implements IAbstracFactory{
+public class ToyotaFactory extends AbstracFactory {
+    private VehiculoDTO dto;
 
-    @Override
-    public IChasis crearChasis() {
-        return new ChasisToyota();
+    public ToyotaFactory(VehiculoDTO dto) {
+        this.dto = dto;
     }
 
     @Override
-    public IMotor crearMotor() {
-        return new MotorToyota();
+    public Chasis crearChasis() {
+        return new ChasisToyota(dto.getChasisNoEjes(), dto.getChasisNoPieza(), dto.getChasisTipoTransmision());
     }
 
     @Override
-    public ICojineria crearCojineria() {
-        return new CojineriaToyota();
+    public Motor crearMotor() {
+        return new MotorToyota(dto.getMotorPotenciaMaxima(), dto.getMotorNoPieza(), dto.getMotorTecnologia());
+    }
+
+    @Override
+    public Cojineria crearCojineria() {
+        return new CojineriaToyota(dto.getCojineriaNoPieza(), dto.getCojineriaMaterial());
     }
 }
